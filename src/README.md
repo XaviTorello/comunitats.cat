@@ -15,7 +15,7 @@ yarn global add parcel-bundler`
 Start dev server with:
 
 ```
-yarn devel
+yarn start
 ```
 
 ### Build

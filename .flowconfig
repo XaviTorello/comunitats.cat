@@ -1,0 +1,15 @@
+[lints]
+
+# We're going to be as strict as possible with types as long as we can
+all=error
+
+[options]
+module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
+
+# Output warnings in error output
+include_warnings=true
+
+# Babel automatically adds `"use strict";`
+module.use_strict=true
+
+emoji=true

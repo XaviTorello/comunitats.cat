@@ -1,6 +1,6 @@
 # Comunitats.CAT PoC
 
-This provides a proof of concept for the [Comunitats.CAT](https://comunitats.cat) site
+This provides a proof of concept for the [Comunitats.CAT](https://test.comunitats.cat) site
 
 ## Development
 

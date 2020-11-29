@@ -111,7 +111,7 @@ async function prepareEvents() {
           newSchedule.location = venue_name;
           newSchedule.attendees = 0;
           newSchedule.recurrenceRule = '';
-          newSchedule.state = chance.bool({ likelihood: 20 }) ? 'Free' : 'Busy';
+          // newSchedule.state = chance.bool({ likelihood: 20 }) ? 'Free' : 'Busy';
           newSchedule.color = color;
           newSchedule.bgColor = bgColor;
           newSchedule.dragBgColor = dragBgColor || bgColor;

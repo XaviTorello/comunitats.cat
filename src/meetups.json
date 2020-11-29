@@ -6,6 +6,12 @@
       "bgColor":"red"
    },
    {
+      "name":"Python Barcelona",
+      "meetupId":"python-barcelona",
+      "color":"#ffffff",
+      "bgColor":"yellow"
+   },
+   {
       "name":"Software Crafters Girona",
       "meetupId":"Software-Crafters-Girona",
       "color":"#ffffff",

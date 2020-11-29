@@ -1,0 +1,20 @@
+[
+   {
+      "name":"Python Girona",
+      "meetupId":"PythonGirona",
+      "color":"#ffffff",
+      "bgColor":"red"
+   },
+   {
+      "name":"Software Crafters Girona",
+      "meetupId":"Software-Crafters-Girona",
+      "color":"#ffffff",
+      "bgColor":"blue"
+   },
+   {
+      "name":"PyData Salamanca",
+      "meetupId":"PyData-Salamanca",
+      "color":"#ffffff",
+      "bgColor":"#9e5fff"
+   }
+]

@@ -1,0 +1,35 @@
+{
+    "timezone": "Europe/Andorra",
+    "color": "#ffffff",
+    "bgColor": "green",
+    "lang": "ca",
+    "daynames": {
+        "en": [
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat"
+        ],
+        "ca": [
+            "Dg",
+            "Dl",
+            "Dm",
+            "Dc",
+            "Dj",
+            "Dv",
+            "Ds"
+        ],
+        "es": [
+            "Do",
+            "Lu",
+            "Ma",
+            "Mi",
+            "Ju",
+            "Vi",
+            "Sa"
+        ]
+    }
+}

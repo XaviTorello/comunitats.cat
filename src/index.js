@@ -30,23 +30,29 @@ const defaults = {
 async function prepareCalendars() {
   var calendarList = document.getElementById('calendarList');
   var html = [];
-  meetupGroups.forEach((calendar) => {
-    html.push(
-      '<div class="lnb-calendars-item"><label>' +
-        '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' +
-        calendar.id +
-        '" checked>' +
-        '<span style="border-color: ' +
-        calendar.borderColor +
-        '; background-color: ' +
-        calendar.bgColor +
-        ';"></span>' +
-        '<span>' +
-        calendar.name +
-        '</span>' +
-        '</label></div>',
-    );
-  });
+  meetupGroups
+    .sort((a, b) => {
+      const nameA = a.name.toLowerCase(),
+        nameB = b.name.toLowerCase();
+      return nameA < nameB ? -1 : 0;
+    })
+    .forEach((calendar) => {
+      html.push(
+        '<div class="lnb-calendars-item"><label>' +
+          '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' +
+          calendar.id +
+          '" checked>' +
+          '<span style="border-color: ' +
+          calendar.borderColor +
+          '; background-color: ' +
+          calendar.bgColor +
+          ';"></span>' +
+          '<span>' +
+          calendar.name +
+          '</span>' +
+          '</label></div>',
+      );
+    });
   calendarList.innerHTML = html.join('\n');
 }
 

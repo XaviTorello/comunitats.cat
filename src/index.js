@@ -92,7 +92,8 @@ async function prepareEvents() {
           const newSchedule = new Schedule();
 
           newSchedule.id = String(event_id);
-          newSchedule.calendarId = calendar.id;
+          // newSchedule.calendarId = calendar.id;
+          newSchedule.calendarId = group.name;
 
           newSchedule.title = title;
 
@@ -143,7 +144,7 @@ async function prepareEvents() {
 // Initialize Calendar
 (async () => {
   const calendar = new Calendar('#calendar', {
-    defaultView: 'week',
+    defaultView: 'month',
     taskView: true,
     scheduleView: true,
     usageStatistics: false,

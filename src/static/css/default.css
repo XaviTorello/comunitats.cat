@@ -28,7 +28,9 @@ body {
   color: #bbb;
 }
 
-.btn:focus:active, .btn:focus, .btn:active {
+.btn:focus:active,
+.btn:focus,
+.btn:active {
   outline: none;
 }
 
@@ -67,8 +69,15 @@ body {
 #top {
   height: 49px;
   border-bottom: 1px solid #bbb;
-  padding: 16px;
+  padding: 12px;
   font-size: 10px;
+}
+
+#top .logo img {
+  top: 5px;
+  position: absolute;
+  height: 28px;
+  height: 38px;
 }
 
 #lnb {
@@ -205,28 +214,28 @@ body {
 }
 
 .calendar-name {
-    font-size: 14px;
-    font-weight: bold;
-    vertical-align: middle;
+  font-size: 14px;
+  font-weight: bold;
+  vertical-align: middle;
 }
 
 .schedule-time {
-    color: #005aff;
+  color: #005aff;
 }
 
 #calendar {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 5px;
-    top: 64px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  top: 64px;
 }
 
 /** custom fontawesome */
 .fa {
-    width: 12px;
-    height: 12px;
-    margin-right: 2px;
+  width: 12px;
+  height: 12px;
+  margin-right: 2px;
 }
 
 .weekday-grid-more-schedules {

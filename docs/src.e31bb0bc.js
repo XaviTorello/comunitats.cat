@@ -60616,10 +60616,35 @@ module.exports = [{
   "color": "#ffffff",
   "bgColor": "blue"
 }, {
-  "name": "PyData Salamanca",
+  "name": "GDG Girona",
+  "meetupId": "GDG-Girona",
+  "color": "#ffffff",
+  "bgColor": "green"
+}, {
+  "name": "Femme Inline",
+  "meetupId": "Femme-Inline",
+  "color": "#ffffff",
+  "bgColor": "salmon"
+}, {
+  "name": "Digitals Girona",
+  "meetupId": "associacio-digitals-girona",
+  "color": "#ffffff",
+  "bgColor": "brown"
+}, {
+  "name": "Girona WordPress",
+  "meetupId": "Girona-WordPress-Meetup",
+  "color": "#ffffff",
+  "bgColor": "darkslateblue"
+}, {
+  "name": "SEO Girona",
+  "meetupId": "SEO-Girona",
+  "color": "#ffffff",
+  "bgColor": "greenyellow"
+}, {
+  "name": "PyData",
   "meetupId": "PyData-Salamanca",
   "color": "#ffffff",
-  "bgColor": "#9e5fff"
+  "bgColor": "purple"
 }];
 },{}],"../node_modules/moment/moment.js":[function(require,module,exports) {
 var define;
@@ -66342,8 +66367,7 @@ function getTimeTemplate(schedule, isAllDay) {
     html.push('<span class="calendar-font-icon ic-lock-b"></span>');
     html.push(' Private');
   } else {
-    if (schedule.isReadOnly) {
-      html.push('<span class="calendar-font-icon ic-readonly-b"></span>');
+    if (schedule.isReadOnly) {// html.push('<span class="calendar-font-icon ic-readonly-b"></span>');
     } else if (schedule.recurrenceRule) {
       html.push('<span class="calendar-font-icon ic-repeat-b"></span>');
     } else if (schedule.attendees.length) {
@@ -66352,7 +66376,8 @@ function getTimeTemplate(schedule, isAllDay) {
       html.push('<span class="calendar-font-icon ic-location-b"></span>');
     }
 
-    html.push(' ' + schedule.title);
+    html.push('<em>"' + schedule.title + '"</em> ');
+    html.push('@ <strong>' + schedule.calendarId + '</strong> ');
   }
 
   return html.join('');
@@ -66564,7 +66589,11 @@ async function prepareCalendars() {
   var calendarList = document.getElementById('calendarList');
   var html = [];
 
-  _meetups.default.forEach(calendar => {
+  _meetups.default.sort((a, b) => {
+    const nameA = a.name.toLowerCase(),
+          nameB = b.name.toLowerCase();
+    return nameA < nameB ? -1 : 0;
+  }).forEach(calendar => {
     html.push('<div class="lnb-calendars-item"><label>' + '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' + calendar.id + '" checked>' + '<span style="border-color: ' + calendar.borderColor + '; background-color: ' + calendar.bgColor + ';"></span>' + '<span>' + calendar.name + '</span>' + '</label></div>');
   });
 
@@ -66612,8 +66641,9 @@ async function prepareEvents() {
       }) => {
         console.debug(`  - Adding event "${title}"`);
         const newSchedule = new _schedule.default();
-        newSchedule.id = String(event_id);
-        newSchedule.calendarId = calendar.id;
+        newSchedule.id = String(event_id); // newSchedule.calendarId = calendar.id;
+
+        newSchedule.calendarId = group.name;
         newSchedule.title = title; // Meetup API returns local dates with incorrect fixed EST timezone
         // TODO Deal with TZ!
 
@@ -66658,7 +66688,7 @@ async function prepareEvents() {
 
 (async () => {
   const calendar = new _tuiCalendar.default('#calendar', {
-    defaultView: 'week',
+    defaultView: 'month',
     taskView: true,
     scheduleView: true,
     usageStatistics: false,
@@ -66771,7 +66801,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55467" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55399" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

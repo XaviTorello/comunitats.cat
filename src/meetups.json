@@ -18,9 +18,39 @@
       "bgColor":"blue"
    },
    {
-      "name":"PyData Salamanca",
+      "name":"GDG Girona",
+      "meetupId":"GDG-Girona",
+      "color":"#ffffff",
+      "bgColor":"green"
+   },
+   {
+      "name":"Femme Inline",
+      "meetupId":"Femme-Inline",
+      "color":"#ffffff",
+      "bgColor":"salmon"
+   },
+   {
+      "name":"Digitals Girona",
+      "meetupId":"associacio-digitals-girona",
+      "color":"#ffffff",
+      "bgColor":"brown"
+   },
+   {
+      "name":"Girona WordPress",
+      "meetupId":"Girona-WordPress-Meetup",
+      "color":"#ffffff",
+      "bgColor":"darkslateblue"
+   },
+   {
+      "name":"SEO Girona",
+      "meetupId":"SEO-Girona",
+      "color":"#ffffff",
+      "bgColor":"greenyellow"
+   },
+   {
+      "name":"PyData",
       "meetupId":"PyData-Salamanca",
       "color":"#ffffff",
-      "bgColor":"#9e5fff"
+      "bgColor":"purple"
    }
 ]

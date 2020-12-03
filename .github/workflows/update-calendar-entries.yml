@@ -1,7 +1,6 @@
 name: Update calendar entries
 
 on:
-  pull_request:
   schedule:
     - cron: "*/5 * * * *"
 
@@ -31,4 +30,4 @@ jobs:
           file-path: src/*.json
           commit-msg: '[Auto] Update calendar entries file'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
+          branch: master

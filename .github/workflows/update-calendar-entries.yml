@@ -29,6 +29,6 @@ jobs:
       uses: test-room-7/action-update-file@v1
       with:
           file-path: src/*.json
-          commit-message: '[Auto] Update calendar entries file'
+          commit-msg: '[Auto] Update calendar entries file'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 

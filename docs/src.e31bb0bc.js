@@ -60585,8 +60585,95 @@ class Schedule {
   }
 
 }
+/*
+ * Try to get all events for all activated meetup groups
+ */
+
 
 exports.default = Schedule;
+
+async function* prepareEventsFromMeetup() {
+  // const scheduleList = [];
+  for (const group of meetupGroups) {
+    const scheduleList = [];
+
+    try {
+      const {
+        name,
+        meetupId,
+        color = defaults.color,
+        bgColor = defaults.bgColor,
+        dragBgColor,
+        borderColor,
+        timezone = settings.timezone,
+        active = true
+      } = group;
+      if (!active) continue;
+      const meetupUrl = `https://www.meetup.com/${meetupId}/events/json/`;
+      const result = await fetchJsonCalendar({
+        url: meetupUrl
+      });
+      console.debug(`- Getting events for "${name}"`, result);
+      result.forEach(({
+        event_id,
+        title,
+        descr,
+        event_url,
+        type,
+        local_time,
+        chapter_url,
+        venue_name,
+        venue_lat,
+        venue_lon,
+        venue_address1,
+        ...other
+      }) => {
+        console.debug(`  - Adding event "${title}"`);
+        const newSchedule = new Schedule();
+        newSchedule.id = String(event_id); // newSchedule.calendarId = calendar.id;
+
+        newSchedule.calendarId = group.name;
+        newSchedule.title = title; // Meetup API returns local dates with incorrect fixed EST timezone
+        // TODO Deal with TZ!
+
+        const parsedDate = local_time.split(' ').slice(0, 2).join('T');
+        const time = new Date(parsedDate);
+        newSchedule.start = time;
+        newSchedule.end = addHours(time, 2);
+        newSchedule.title = title;
+        newSchedule.body = descr;
+        newSchedule.isReadOnly = true;
+        newSchedule.isPrivate = false;
+        newSchedule.location = venue_name;
+        newSchedule.attendees = 0;
+        newSchedule.recurrenceRule = ''; // newSchedule.state = chance.bool({ likelihood: 20 }) ? 'Free' : 'Busy';
+
+        newSchedule.color = color;
+        newSchedule.bgColor = bgColor;
+        newSchedule.dragBgColor = dragBgColor || bgColor;
+        newSchedule.borderColor = borderColor || bgColor;
+        newSchedule.category = 'time'; // newSchedule.raw.memo = chance.sentence();
+        // newSchedule.raw.creator.name = chance.name();
+        // newSchedule.raw.creator.avatar = chance.avatar();
+        // newSchedule.raw.creator.company = chance.company();
+        // newSchedule.raw.creator.email = chance.email();
+        // newSchedule.raw.creator.phone = chance.phone();
+        // if (chance.bool({ likelihood: 20 })) {
+        //   var travelTime = chance.minute();
+        //   newSchedule.goingDuration = travelTime;
+        //   newSchedule.comingDuration = travelTime;
+        // }
+
+        scheduleList.push(newSchedule);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+    yield scheduleList;
+  } // return scheduleList;
+
+}
 },{}],"settings.json":[function(require,module,exports) {
 module.exports = {
   "timezone": "Europe/Andorra",
@@ -60650,6 +60737,74 @@ module.exports = [{
   "meetupId": "APIAddictsBCN",
   "color": "#ffffff",
   "bgColor": "darkcyan"
+}];
+},{}],"calendarEntries.json":[function(require,module,exports) {
+module.exports = [{
+  "is_private": "false",
+  "venue_name": "Online event",
+  "rsvp_limit": 30,
+  "fee_currency": "USD",
+  "fee": 0,
+  "venue_lon": 179.1962,
+  "title": "Score Keeper kata",
+  "type": "Meetup",
+  "venue_address1": "",
+  "venue_address2": "",
+  "local_time": "2020-12-16 21:30:00 EST",
+  "fee_label": "",
+  "myRsvp": -1,
+  "ctime": "2020-11-26 12:56:21 EST",
+  "guest_limit": 0,
+  "rsvp_closed": "false",
+  "confirmCount": 18,
+  "venue_id": 26906060,
+  "venue_zip": "",
+  "chapter_url": "https://www.meetup.com/Software-Crafters-Girona/#",
+  "servertime": "2020-12-16 15:30:00 EST",
+  "venue_city": "",
+  "event_url": "https://www.meetup.com/Software-Crafters-Girona/events/274828535/",
+  "allow_maybe_rsvps": "false",
+  "commentCount": 0,
+  "descr": "<p>Hola!</p> <p>El pr\u00f2xim Dimecres 16 de Desembre quedarem en l\u00ednia per fer la Kata de Score Keeper de forma guiada. Score Keeper \u00e9s una kata pensada per a iniciar-se en el TDD i el pair-programming.<br/>La intenci\u00f3 \u00e9s organitzar-nos en grups de 3-4 persones per fer-la (els llenguatges de programaci\u00f3 i IDEs es decidir\u00e0 en el moment i segons els grups).</p> <p>Comen\u00e7arem a les 21:30 fent una breu introducci\u00f3 a Software Crafters Girona, la kata i qu\u00e8 \u00e9s el TDD. Despr\u00e9s farem els grups i ja ens posarem a fer la kata fins cap a les 23:30.<br/>Un cop acabada la kata (o el temps que pretenem dedicar-hi) la farem petar una estona online a gather-town.</p> <p>Recomanem a tothom que assisteixi que tingui el seg\u00fcent setup configurat per poder compartir codi i pantalla amb algu.<br/>- Visual Studio code + Live Share<br/>- Compte de GitHub o Microsoft, necess\u00e0ri per poder editar codi en una sessi\u00f3 LiveShare iniciada per un altre usuari.</p> <p>Esperem veure'ns-hi!<br/>Xavi</p> <p>---------------------------------------------------------------------------------<br/>Hola!</p> <p>El pr\u00f3ximo Mi\u00e9rcoles 16 de Diciembre quedaremos en linea para hacer la Kata de Score Keeper de forma guiada. Score Keeper es una kata pensada para iniciarse en el TDD y el pair-programming.<br/>La intenci\u00f3n es organizarnos en grupos de 3-4 personas para hacerla (los lenguajes de programaci\u00f3n y IDEs se decidir\u00e1 en el momento y seg\u00fan los grupos).</p> <p>Empezaremos a las 21:30 haciendo una breve introducci\u00f3n a Software Crafters Girona, la kata y qu\u00e9 es eso del TDD. Despu\u00e9s haremos los grupos y nos pondremos a hacer la kata hasta hacia las 23:30.<br/>Una vez acabada la kata (o el tiempo que pretendemos dedicar) charlaremos un rato online en gather-town.<br/>Recomendamos a todo el mundo que asista que tenga el siguiente setup configurado para poder compartir c\u00f3digo y pantalla con los compa\u00f1eros.</p> <p>- Visual Studio code + Live Share<br/>- Cuenta de GitHub o Microsoft, necesario para poder editar c\u00f3digo en una sesi\u00f3n LiveShare iniciada por otro usuario.</p> <p>Esperamos veros!<br/>Xavi</p> ",
+  "venue_country": "",
+  "event_id": 274828535,
+  "fee_desc": "",
+  "chapter_id": 33453308,
+  "venue_lat": -8.521147,
+  "meetupId": "Software-Crafters-Girona"
+}, {
+  "is_private": "false",
+  "venue_name": "Online event",
+  "rsvp_limit": 0,
+  "fee_currency": "USD",
+  "fee": 0,
+  "venue_lon": 179.1962,
+  "title": "\u00bfQuieres mejorar tus APIs con herramientas Open Source?",
+  "type": "Meetup",
+  "venue_address1": "",
+  "venue_address2": "",
+  "local_time": "2020-12-03 17:00:00 EST",
+  "fee_label": "",
+  "myRsvp": -1,
+  "ctime": "2020-10-26 06:45:41 EDT",
+  "guest_limit": 0,
+  "rsvp_closed": "false",
+  "confirmCount": 15,
+  "venue_id": 26906060,
+  "venue_zip": "",
+  "chapter_url": "https://www.meetup.com/APIAddictsBCN/#",
+  "servertime": "2020-12-03 11:00:00 EST",
+  "venue_city": "",
+  "event_url": "https://www.meetup.com/APIAddictsBCN/events/274180640/",
+  "allow_maybe_rsvps": "false",
+  "commentCount": 0,
+  "descr": "<p>\u00bfQuieres mejorar tus APIs con herramientas Open Source?<br/>Muchas veces nos quejamos de que nuestra herramienta de APIs le falta algunas funcionalidades.<br/>Te presentamos las APITools, fruto de nuestra experiencia que complementan al 100% a tus herramientas de APIs.</p> <p>\u00a1Ven el Jueves 19 de noviembre al evento y con\u00f3celas!</p> <p>Entrada GRATIS</p> <p>Inscripci\u00f3n a trav\u00e9s de eventbrite: <a href=\"https://www.eventbrite.es/e/entradas-presentacion-api-tools-126780402597?aff=meetup\" class=\"linkified\">https://www.eventbrite.es/e/entradas-presentacion-api-tools-126780402597?aff=meetup</a></p> <p>Modalidad online</p> <p>Horario<br/>Espa\u00f1a: 17:00 a 19:00h<br/>Per\u00fa, Colombia: 11:00 a 13:00h<br/>Argentina, Chile: 13:00 a 15:00h<br/>M\u00e9xico: 10:00 a 12:00h</p> <p>Trataremos los siguientes puntos:<br/>/OpenAPI2postman: Aseg\u00farate de que funciona bien tu API.</p> <p>/doSonarAPI: Automatiza que las APIs est\u00e9n bien definidas seg\u00fan tu est\u00e1ndar corporativo.</p> <p>/API2Microservices: Genera tu arquetipo Springboot con conexi\u00f3n a BBDD y cumpliendo las buenas pr\u00e1cticas en tu empresa.</p> <p>Con estas herramientas ya no tienes excusa para no realizar un buen gobierno de APIs.</p> <p>\u00a1Ap\u00fantate ya, te esperamos APIAddict!</p> ",
+  "venue_country": "",
+  "event_id": 274180640,
+  "fee_desc": "",
+  "chapter_id": 21651561,
+  "venue_lat": -8.521147,
+  "meetupId": "APIAddictsBCN"
 }];
 },{}],"../node_modules/moment/moment.js":[function(require,module,exports) {
 var define;
@@ -66574,6 +66729,8 @@ var _settings = _interopRequireDefault(require("./settings.json"));
 
 var _meetups = _interopRequireDefault(require("./meetups.json"));
 
+var _calendarEntries = _interopRequireDefault(require("./calendarEntries.json"));
+
 var _utils = require("./utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -66604,92 +66761,88 @@ async function prepareCalendars() {
 
   calendarList.innerHTML = html.join('\n');
 }
-/*
- * Try to get all events for all activated meetup groups
- */
-
 
 async function* prepareEvents() {
-  // const scheduleList = [];
-  for (const group of _meetups.default) {
-    const scheduleList = [];
+  /*
+   * Prepare events from calendarEntries JSON
+   *
+   * Ready to be an async generator if more calendars should be fetched
+   */
+  const scheduleList = [];
 
-    try {
-      const {
-        name,
-        meetupId,
-        color = defaults.color,
-        bgColor = defaults.bgColor,
-        dragBgColor,
-        borderColor,
-        timezone = _settings.default.timezone,
-        active = true
-      } = group;
-      if (!active) continue;
-      const meetupUrl = `https://www.meetup.com/${meetupId}/events/json/`;
-      const result = await (0, _utils.fetchJsonCalendar)({
-        url: meetupUrl
-      });
-      console.debug(`- Getting events for "${name}"`, result);
-      result.forEach(({
-        event_id,
-        title,
-        descr,
-        event_url,
-        type,
-        local_time,
-        chapter_url,
-        venue_name,
-        venue_lat,
-        venue_lon,
-        venue_address1,
-        ...other
-      }) => {
-        console.debug(`  - Adding event "${title}"`);
-        const newSchedule = new _schedule.default();
-        newSchedule.id = String(event_id); // newSchedule.calendarId = calendar.id;
+  const groups = _meetups.default.reduce((result, item) => {
+    const {
+      meetupId
+    } = item;
+    result[meetupId] = item;
+    return result;
+  }, {});
 
-        newSchedule.calendarId = group.name;
-        newSchedule.title = title; // Meetup API returns local dates with incorrect fixed EST timezone
-        // TODO Deal with TZ!
+  console.debug(`- Parsing calendar entries`);
 
-        const parsedDate = local_time.split(' ').slice(0, 2).join('T');
-        const time = new Date(parsedDate);
-        newSchedule.start = time;
-        newSchedule.end = (0, _dateFns.addHours)(time, 2);
-        newSchedule.title = title;
-        newSchedule.body = descr;
-        newSchedule.isReadOnly = true;
-        newSchedule.isPrivate = false;
-        newSchedule.location = venue_name;
-        newSchedule.attendees = 0;
-        newSchedule.recurrenceRule = ''; // newSchedule.state = chance.bool({ likelihood: 20 }) ? 'Free' : 'Busy';
+  _calendarEntries.default.forEach(({
+    event_id,
+    title,
+    descr,
+    event_url,
+    type,
+    local_time,
+    chapter_url,
+    venue_name,
+    venue_lat,
+    venue_lon,
+    venue_address1,
+    meetupId,
+    ...other
+  }) => {
+    console.debug(`  - Adding event "${title}"`);
+    const {
+      name: groupName,
+      color,
+      bgColor,
+      dragBgColor,
+      borderColor,
+      ...group
+    } = groups[meetupId] || {};
+    const newSchedule = new _schedule.default();
+    newSchedule.id = String(event_id); // newSchedule.calendarId = calendar.id;
 
-        newSchedule.color = color;
-        newSchedule.bgColor = bgColor;
-        newSchedule.dragBgColor = dragBgColor || bgColor;
-        newSchedule.borderColor = borderColor || bgColor;
-        newSchedule.category = 'time'; // newSchedule.raw.memo = chance.sentence();
-        // newSchedule.raw.creator.name = chance.name();
-        // newSchedule.raw.creator.avatar = chance.avatar();
-        // newSchedule.raw.creator.company = chance.company();
-        // newSchedule.raw.creator.email = chance.email();
-        // newSchedule.raw.creator.phone = chance.phone();
-        // if (chance.bool({ likelihood: 20 })) {
-        //   var travelTime = chance.minute();
-        //   newSchedule.goingDuration = travelTime;
-        //   newSchedule.comingDuration = travelTime;
-        // }
+    newSchedule.calendarId = groupName;
+    newSchedule.title = title; // Meetup API returns local dates with incorrect fixed EST timezone
+    // TODO Deal with TZ!
 
-        scheduleList.push(newSchedule);
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    const parsedDate = local_time.split(' ').slice(0, 2).join('T');
+    const time = new Date(parsedDate);
+    newSchedule.start = time;
+    newSchedule.end = (0, _dateFns.addHours)(time, 2);
+    newSchedule.title = title;
+    newSchedule.body = descr;
+    newSchedule.isReadOnly = true;
+    newSchedule.isPrivate = false;
+    newSchedule.location = venue_name;
+    newSchedule.attendees = 0;
+    newSchedule.recurrenceRule = ''; // newSchedule.state = chance.bool({ likelihood: 20 }) ? 'Free' : 'Busy';
 
-    yield scheduleList;
-  } // return scheduleList;
+    newSchedule.color = color;
+    newSchedule.bgColor = bgColor;
+    newSchedule.dragBgColor = dragBgColor || bgColor;
+    newSchedule.borderColor = borderColor || bgColor;
+    newSchedule.category = 'time'; // newSchedule.raw.memo = chance.sentence();
+    // newSchedule.raw.creator.name = chance.name();
+    // newSchedule.raw.creator.avatar = chance.avatar();
+    // newSchedule.raw.creator.company = chance.company();
+    // newSchedule.raw.creator.email = chance.email();
+    // newSchedule.raw.creator.phone = chance.phone();
+    // if (chance.bool({ likelihood: 20 })) {
+    //   var travelTime = chance.minute();
+    //   newSchedule.goingDuration = travelTime;
+    //   newSchedule.comingDuration = travelTime;
+    // }
 
+    scheduleList.push(newSchedule);
+  });
+
+  yield scheduleList; // return scheduleList;
 } // Initialize Calendar
 
 
@@ -66786,7 +66939,7 @@ async function* prepareEvents() {
 
   console.debug('Fetched events', scheduleList);
 })();
-},{"tui-calendar":"../node_modules/tui-calendar/dist/tui-calendar.js","tui-calendar/dist/tui-calendar.css":"../node_modules/tui-calendar/dist/tui-calendar.css","date-fns":"../node_modules/date-fns/esm/index.js","tui-date-picker/dist/tui-date-picker.css":"../node_modules/tui-date-picker/dist/tui-date-picker.css","tui-time-picker/dist/tui-time-picker.css":"../node_modules/tui-time-picker/dist/tui-time-picker.css","./models/schedule":"models/schedule.js","./settings.json":"settings.json","./meetups.json":"meetups.json","./utils":"utils.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"tui-calendar":"../node_modules/tui-calendar/dist/tui-calendar.js","tui-calendar/dist/tui-calendar.css":"../node_modules/tui-calendar/dist/tui-calendar.css","date-fns":"../node_modules/date-fns/esm/index.js","tui-date-picker/dist/tui-date-picker.css":"../node_modules/tui-date-picker/dist/tui-date-picker.css","tui-time-picker/dist/tui-time-picker.css":"../node_modules/tui-time-picker/dist/tui-time-picker.css","./models/schedule":"models/schedule.js","./settings.json":"settings.json","./meetups.json":"meetups.json","./calendarEntries.json":"calendarEntries.json","./utils":"utils.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -66814,7 +66967,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60328" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59087" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -30,3 +30,6 @@ jobs:
       with:
         commit-message: '[Auto] update pre-puilt dist packages'
         remote: origin
+        ref: ${GITHUB_REF##*/}
+        remote-ref: ${GITHUB_REF##*/}
+

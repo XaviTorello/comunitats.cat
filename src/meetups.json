@@ -52,5 +52,11 @@
       "meetupId":"PyData-Salamanca",
       "color":"#ffffff",
       "bgColor":"purple"
+   },
+   {
+      "name":"API Addicts BCN",
+      "meetupId":"APIAddictsBCN",
+      "color":"#ffffff",
+      "bgColor":"darkcyan"
    }
 ]

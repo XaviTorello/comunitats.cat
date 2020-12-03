@@ -1,6 +1,7 @@
 name: Update calendar entries
 
 on:
+  pull_request:
   schedule:
     - cron: "*/5 * * * *"
 

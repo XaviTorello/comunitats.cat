@@ -1,0 +1,33 @@
+name: Update calendar entries
+
+on:
+  schedule:
+    - cron: '*/60 * * * *'
+
+jobs:
+  data-mirror:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f tools/requirements.txt ]; then pip install -r tools/requirements.txt; fi
+    - name: Fetch new calendar entries
+      run: |
+        python tools/data_mirror.py
+        cat src/calendarEntries.json
+    - name: Update calendar entries file
+      uses: test-room-7/action-update-file@v1
+      with:
+          file-path: src/*.json
+          commit-msg: '[Auto] Update calendar entries file'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master

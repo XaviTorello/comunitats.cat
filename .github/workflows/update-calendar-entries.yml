@@ -26,10 +26,9 @@ jobs:
         python tools/data_mirror.py
         cat src/calendarEntries.json
     - name: Update calendar entries file
-      uses: actions-go/push@master
+      uses: test-room-7/action-update-file@v1
       with:
-        commit-message: '[Auto] update pre-puilt dist packages'
-        remote: origin
-        ref: ${GITHUB_REF##*/}
-        remote-ref: ${GITHUB_REF##*/}
+          file-path: src/*.json
+          commit-message: '[Auto] Update calendar entries file'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 

@@ -38,7 +38,7 @@ with open(GROUPS_FILE, "r") as groups_file:
                 events = r.json()
                 for event in events:
                     event_id = event.get("event_id")
-                    event["meetup_id"] = meetup_id
+                    event["meetupId"] = meetup_id
                     entries[event_id] = event
             except Exception as e:
                 print(f"Error processing {group.get('name')}", e)

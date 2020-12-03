@@ -24,7 +24,7 @@ export function getTimeTemplate(schedule, isAllDay) {
     html.push(' Private');
   } else {
     if (schedule.isReadOnly) {
-      html.push('<span class="calendar-font-icon ic-readonly-b"></span>');
+      // html.push('<span class="calendar-font-icon ic-readonly-b"></span>');
     } else if (schedule.recurrenceRule) {
       html.push('<span class="calendar-font-icon ic-repeat-b"></span>');
     } else if (schedule.attendees.length) {
@@ -32,7 +32,8 @@ export function getTimeTemplate(schedule, isAllDay) {
     } else if (schedule.location) {
       html.push('<span class="calendar-font-icon ic-location-b"></span>');
     }
-    html.push(' ' + schedule.title);
+    html.push('<em>"' + schedule.title + '"</em> ');
+    html.push('@ <strong>' + schedule.calendarId + '</strong> ');
   }
   return html.join('');
 }

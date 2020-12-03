@@ -60645,6 +60645,11 @@ module.exports = [{
   "meetupId": "PyData-Salamanca",
   "color": "#ffffff",
   "bgColor": "purple"
+}, {
+  "name": "API Addicts BCN",
+  "meetupId": "APIAddictsBCN",
+  "color": "#ffffff",
+  "bgColor": "darkcyan"
 }];
 },{}],"../node_modules/moment/moment.js":[function(require,module,exports) {
 var define;
@@ -66604,10 +66609,11 @@ async function prepareCalendars() {
  */
 
 
-async function prepareEvents() {
-  const scheduleList = [];
-
+async function* prepareEvents() {
+  // const scheduleList = [];
   for (const group of _meetups.default) {
+    const scheduleList = [];
+
     try {
       const {
         name,
@@ -66680,9 +66686,10 @@ async function prepareEvents() {
     } catch (error) {
       console.error(error);
     }
-  }
 
-  return scheduleList;
+    yield scheduleList;
+  } // return scheduleList;
+
 } // Initialize Calendar
 
 
@@ -66769,9 +66776,15 @@ async function prepareEvents() {
 
   prepareCalendars(); // Fetch and prepare events
 
-  const scheduleList = await prepareEvents();
+  let scheduleList = [];
+  const eventsGenerator = prepareEvents();
+
+  for await (const anScheduleList of eventsGenerator) {
+    scheduleList = scheduleList.concat(anScheduleList);
+    calendar.createSchedules(anScheduleList);
+  }
+
   console.debug('Fetched events', scheduleList);
-  calendar.createSchedules(scheduleList);
 })();
 },{"tui-calendar":"../node_modules/tui-calendar/dist/tui-calendar.js","tui-calendar/dist/tui-calendar.css":"../node_modules/tui-calendar/dist/tui-calendar.css","date-fns":"../node_modules/date-fns/esm/index.js","tui-date-picker/dist/tui-date-picker.css":"../node_modules/tui-date-picker/dist/tui-date-picker.css","tui-time-picker/dist/tui-time-picker.css":"../node_modules/tui-time-picker/dist/tui-time-picker.css","./models/schedule":"models/schedule.js","./settings.json":"settings.json","./meetups.json":"meetups.json","./utils":"utils.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -66801,7 +66814,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55399" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60328" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

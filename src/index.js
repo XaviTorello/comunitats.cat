@@ -59,9 +59,10 @@ async function prepareCalendars() {
 /*
  * Try to get all events for all activated meetup groups
  */
-async function prepareEvents() {
-  const scheduleList = [];
+async function* prepareEvents() {
+  // const scheduleList = [];
   for (const group of meetupGroups) {
+    const scheduleList = [];
     try {
       const {
         name,
@@ -143,8 +144,9 @@ async function prepareEvents() {
     } catch (error) {
       console.error(error);
     }
+    yield scheduleList;
   }
-  return scheduleList;
+  // return scheduleList;
 }
 
 // Initialize Calendar
@@ -245,7 +247,11 @@ async function prepareEvents() {
   prepareCalendars();
 
   // Fetch and prepare events
-  const scheduleList = await prepareEvents();
+  let scheduleList = [];
+  const eventsGenerator = prepareEvents();
+  for await (const anScheduleList of eventsGenerator) {
+    scheduleList = scheduleList.concat(anScheduleList);
+    calendar.createSchedules(anScheduleList);
+  }
   console.debug('Fetched events', scheduleList);
-  calendar.createSchedules(scheduleList);
 })();

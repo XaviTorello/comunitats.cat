@@ -25,3 +25,9 @@ jobs:
       run: |
         python tools/data_mirror.py
         cat src/calendarEntries.json
+    - name: Update file
+      run: |
+        git add src/calendarEntries.json
+        git commit -m "Update calendar entries"
+        git push
+ 

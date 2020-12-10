@@ -21,12 +21,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f tools/requirements.txt ]; then pip install -r tools/requirements.txt; fi
-    - name: Debugging with tmate
-      uses: mxschmitt/action-tmate@v3.1
     - name: Fetch new calendar entries
       run: |
         python tools/data_mirror.py
         cat src/calendarEntries.json
+    - name: Rebuild if changes has been detected
+      run: |
+        bash tools/rebuild_onchanges.sh
     - name: Update calendar entries file
       uses: test-room-7/action-update-file@v1
       with:

@@ -1,6 +1,7 @@
 name: Update calendar entries
 
 on:
+  pull_request:
   schedule:
     - cron: '*/60 * * * *'
 
@@ -24,10 +25,15 @@ jobs:
       run: |
         python tools/data_mirror.py
         cat src/calendarEntries.json
+    - name: Rebuild if changes has been detected
+      run: |
+        bash tools/rebuild_onchanges.sh
     - name: Update calendar entries file
       uses: test-room-7/action-update-file@v1
       with:
-          file-path: src/*.json
+          file-path: |
+            src/**/*
+            docs/**/*
           commit-msg: '[Auto] Update calendar entries file'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           branch: master

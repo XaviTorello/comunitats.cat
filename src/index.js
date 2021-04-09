@@ -164,6 +164,7 @@ async function* prepareEvents() {
       narrowWeekend: true,
     },
   });
+  window.calendar = calendar;
 
   const resizeThrottled = tui.util.throttle(() => {
     calendar.render();

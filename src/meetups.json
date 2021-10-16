@@ -58,5 +58,11 @@
       "meetupId":"APIAddictsBCN",
       "color":"#ffffff",
       "bgColor":"darkcyan"
+   },
+   {
+      "name":"Elixir Barcelona",
+      "meetupId":"elixir-barcelona",
+      "color":"#ffffff",
+      "bgColor":"aqua"
    }
 ]

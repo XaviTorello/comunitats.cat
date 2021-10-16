@@ -58,5 +58,11 @@
       "meetupId":"APIAddictsBCN",
       "color":"#ffffff",
       "bgColor":"darkcyan"
+   },
+   {
+      "name":"InnoIT Consulting Barcelona",
+      "meetupId":"Meetup-de-InnoIT-Consulting-en-Barcelona",
+      "color":"#ffffff",
+      "bgColor":"lightyellow"
    }
 ]

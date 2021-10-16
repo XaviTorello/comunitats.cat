@@ -58,5 +58,11 @@
       "meetupId":"APIAddictsBCN",
       "color":"#ffffff",
       "bgColor":"darkcyan"
+   },
+   {
+      "name":"GraphQL Barcelona",
+      "meetupId":"GraphQL-Barcelona",
+      "color":"#ffffff",
+      "bgColor":"teal"
    }
 ]

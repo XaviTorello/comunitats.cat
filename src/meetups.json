@@ -58,5 +58,11 @@
       "meetupId":"APIAddictsBCN",
       "color":"#ffffff",
       "bgColor":"darkcyan"
+   },
+   {
+      "name":"Codurance Craft Events",
+      "meetupId":"codurance-craft-events",
+      "color":"#ffffff",
+      "bgColor":"lightbrown"
    }
 ]

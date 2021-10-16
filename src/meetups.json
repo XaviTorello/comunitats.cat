@@ -58,5 +58,11 @@
       "meetupId":"APIAddictsBCN",
       "color":"#ffffff",
       "bgColor":"darkcyan"
+   },
+   {
+      "name":"Jug Barcelona",
+      "meetupId":"BarcelonaJUG",
+      "color":"#ffffff",
+      "bgColor":"plum"
    }
 ]

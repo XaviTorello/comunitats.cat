@@ -58,5 +58,11 @@
       "meetupId":"APIAddictsBCN",
       "color":"#ffffff",
       "bgColor":"darkcyan"
+   },
+   {
+      "name":"PyLadies Barcelona",
+      "meetupId":"PyLadies-BCN",
+      "color":"#ffffff",
+      "bgColor":"lightgreen"
    }
 ]

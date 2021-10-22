@@ -1,0 +1,9 @@
+If needed install globally parcel with:
+
+yarn global add parcel-bundler`
+Local development
+Start dev server with:
+
+yarn start
+Build
+yarn build

@@ -60,6 +60,12 @@
       "bgColor":"darkcyan"
    },
    {
+      "name":"Jug Barcelona",
+      "meetupId":"BarcelonaJUG",
+      "color":"#ffffff",
+      "bgColor":"plum"
+   },
+   {
       "name":"Software Crafters Barcelona",
       "meetupId":"Software-Crafters-Barcelona",
       "color":"#ffffff",

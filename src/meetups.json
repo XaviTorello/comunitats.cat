@@ -64,5 +64,29 @@
       "meetupId":"elixir-barcelona",
       "color":"#ffffff",
       "bgColor":"aqua"
+   },
+   {
+      "name":"ThoughtWorks Barcelona",
+      "meetupId":"ThoughtWorks-Barcelona",
+      "color":"#ffffff",
+      "bgColor":"orange"
+   },
+   {
+      "name":"Codurance Craft Events",
+      "meetupId":"codurance-craft-events",
+      "color":"#ffffff",
+      "bgColor":"lightbrown"
+   },
+   {
+      "name":"PyLadies Barcelona",
+      "meetupId":"PyLadies-BCN",
+      "color":"#ffffff",
+      "bgColor":"lightgreen"
+   },
+   {
+      "name":"InnoIT Consulting Barcelona",
+      "meetupId":"Meetup-de-InnoIT-Consulting-en-Barcelona",
+      "color":"#ffffff",
+      "bgColor":"lightyellow"
    }
 ]

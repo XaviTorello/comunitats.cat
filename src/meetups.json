@@ -60,6 +60,12 @@
       "bgColor":"darkcyan"
    },
    {
+      "name":"Elixir Barcelona",
+      "meetupId":"elixir-barcelona",
+      "color":"#ffffff",
+      "bgColor":"aqua"
+   },
+   {
       "name":"ThoughtWorks Barcelona",
       "meetupId":"ThoughtWorks-Barcelona",
       "color":"#ffffff",

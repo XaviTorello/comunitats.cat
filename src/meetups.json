@@ -60,6 +60,12 @@
       "bgColor":"darkcyan"
    },
    {
+      "name":"Codurance Craft Events",
+      "meetupId":"codurance-craft-events",
+      "color":"#ffffff",
+      "bgColor":"lightbrown"
+   },
+   {
       "name":"PyLadies Barcelona",
       "meetupId":"PyLadies-BCN",
       "color":"#ffffff",

@@ -60,6 +60,12 @@
       "bgColor":"darkcyan"
    },
    {
+      "name":"Software Crafters Barcelona",
+      "meetupId":"Software-Crafters-Barcelona",
+      "color":"#ffffff",
+      "bgColor":"coral"
+   },
+   {
       "name":"Elixir Barcelona",
       "meetupId":"elixir-barcelona",
       "color":"#ffffff",

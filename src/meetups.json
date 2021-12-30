@@ -60,6 +60,12 @@
       "bgColor":"darkcyan"
    },
    {
+      "name":"GraphQL Barcelona",
+      "meetupId":"GraphQL-Barcelona",
+      "color":"#ffffff",
+      "bgColor":"teal"
+   },
+   {
       "name":"Jug Barcelona",
       "meetupId":"BarcelonaJUG",
       "color":"#ffffff",
